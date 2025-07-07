@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tableau de bord</title>
-    <link rel="shortcut icon" type="image/png" href="#/images/logos/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="../images/logos/favicon.png" />
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
     <style>
         .sidebar-nav ul li a.active {
@@ -36,18 +36,17 @@
         <div class="app-topstrip bg-primary py-3 px-3 w-100 d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center gap-4">
                 <a href="#">
-                    <img src="#" alt="Logo Bibliothèque" width="40" height="45" style="max-width: 100%; height: auto;">
+                    <img src="../images/logos/logo-sm.png" alt="Logo Bibliothèque" width="40" height="45" style="max-width: 100%; height: auto;" />
                 </a>
-                <h3 class="text-white mb-0 fs-5 d-none d-md-block">Bibliothèque</h3>
+                <h3 class="text-white mb-0 fs-5 d-none d-md-block">Prêt bancaire</h3>
             </div>
 
             <div class="d-flex align-items-center gap-3">
                 <div class="text-white">
                     <span class="d-none d-md-inline">Bienvenue, </span>
-                    <strong></strong>
+                    <strong><!-- Nom utilisateur ici --></strong>
                 </div>
-                <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-1" 
-                   href="#/user/logout">
+                <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-1" href="#/user/logout">
                     <i class="ti ti-logout fs-4"></i>
                     <span class="d-none d-md-inline">Déconnexion</span>
                 </a>
@@ -55,76 +54,7 @@
         </div>
 
         <!-- Sidebar Start -->
-        <aside class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div>
-                <div class="brand-logo d-flex align-items-center justify-content-between p-3">
-                    <a href="#" class="text-nowrap logo-img">
-                        <img src="#/images/logos/logo-sm.png" alt="Logo" width="150" />
-                    </a>
-                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                        <i class="ti ti-x fs-6"></i>
-                    </div>
-                </div>
-                
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-                    <ul id="sidebarnav">
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Menu Principal</span>
-                        </li>
-                        
 
-                        <!-- Livres -->
-                        <li class="sidebar-item">
-                            <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                                <div class="d-flex align-items-center gap-3">
-                                    <span class="d-flex">
-                                        <i class="ti ti-books"></i>
-                                    </span>
-                                    <span class="hide-menu">Pret</span>
-                                </div>
-                            </a>
-                            <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="round-16 d-flex align-items-center justify-content-center">
-                                                <i class="ti ti-circle"></i>
-                                            </div>
-                                            <span class="hide-menu">liste pret</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <span class="sidebar-divider lg"></span>
-                        </li>
-                        
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Mon Compte</span>
-                        </li>
-                        
-                        <li class="sidebar-item">
-                            <a href="#/adherant/profile" class="sidebar-link">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="round-16 d-flex align-items-center justify-content-center">
-                                        <i class="ti ti-user"></i>
-                                    </div>
-                                    <span class="hide-menu">Mon profil</span>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
         <!-- Sidebar End -->
 
         <!-- Main wrapper -->
@@ -139,18 +69,17 @@
                             </a>
                         </li>
                     </ul>
-                    
+
                     <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                             <li class="nav-item dropdown">
                                 <a class="nav-link pe-0" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="d-flex align-items-center">
                                         <div class="me-2">
-                                            <img src="#/images/profile/user-1.jpg" alt="Profil" 
-                                                 width="35" height="35" class="rounded-circle">
+                                            <img src="../images/profile/user-1.jpg" alt="Profil" width="35" height="35" class="rounded-circle" />
                                         </div>
                                         <div class="d-none d-md-block">
-                                            <p class="mb-0 fs-3 fw-semibold">${sessionScope.user.prenom} ${sessionScope.user.nom}</p>
+                                            <p class="mb-0 fs-3 fw-semibold"><!-- Nom utilisateur ici --></p>
                                             <small class="text-muted">Adhérent</small>
                                         </div>
                                     </div>
@@ -180,10 +109,11 @@
                     </div>
                 </nav>
             </header>
-            
+
             <div class="body-wrapper-inner">
                 <div class="container-fluid">
-                    <jsp:include page="${page}.jsp"/>
+                    <%-- Inclusion dynamique JSP --%>
+                    <jsp:include page="${page}.jsp" />
                 </div>
             </div>
         </div>
@@ -195,18 +125,6 @@
     <script src="../assets/js/app.min.js"></script>
     <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
     <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
-    
-    <script>
-        $(document).ready(function() {
-            const currentPage = '<%= includePage %>';
-            $('#sidebarnav a').each(function() {
-                if ($(this).attr('href') && $(this).attr('href').includes(currentPage)) {
-                    $(this).addClass('active');
-                    $(this).parents('.collapse').addClass('show');
-                    $(this).parents('.sidebar-item').find('.has-arrow').attr('aria-expanded', 'true');
-                }
-            });
-        });
-    </script>
+
 </body>
 </html>
