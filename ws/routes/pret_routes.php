@@ -6,3 +6,4 @@ $db = getDB();
 $pretController = new PretController($db);
 
 Flight::route('GET /pret',[$pretController,'findAll']);
+Flight::route('POST /pret', [$pretController, 'create']);
