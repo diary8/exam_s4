@@ -60,13 +60,18 @@ CREATE TABLE pret(
    FOREIGN KEY(type_pret_id) REFERENCES type_pret(id),
    FOREIGN KEY(client_id) REFERENCES client(id)
 );
+
 CREATE TABLE demande_pret(
    id INT AUTO_INCREMENT,
    montant DECIMAL(15,2)   NOT NULL,
    date_demande DATE NOT NULL,
    type_pret_id INT NOT NULL,
+   banque_id INT NOT NULL,
+   client_id INT NOT NULL,
    PRIMARY KEY(id),
-   FOREIGN KEY(type_pret_id) REFERENCES type_pret(id)
+   FOREIGN KEY(type_pret_id) REFERENCES type_pret(id),
+   FOREIGN KEY (banque_id) REFERENCES banque(id),
+   FOREIGN KEY (client_id) REFERENCES client(id)
 );
 
 CREATE TABLE status_demande(

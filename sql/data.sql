@@ -44,15 +44,6 @@ INSERT INTO pret (date_debut_pret, montant, banque_id, type_pret_id, client_id) 
 ('2025-01-10', 100000.00, 1, 1, 1),
 ('2025-02-15', 15000.00, 2, 2, 2);
 
--- Demandes de prêt
-INSERT INTO demande_pret (montant, date_demande, type_pret_id) VALUES 
-(20000.00, '2025-06-01', 3),
-(50000.00, '2025-06-10', 1);
-
--- Statuts des demandes
-INSERT INTO status_demande (date_changement, demande_pret_id, statut_id) VALUES 
-('2025-06-02', 1, 1),  -- En attente
-('2025-06-11', 2, 2);  -- Approuvée
 
 -- Fonds établissement
 INSERT INTO fond_etablissement (montant, banque_id) VALUES 
@@ -68,3 +59,12 @@ INSERT INTO mouvement_fond (date_ustilisation, montant_utilise, fond_etablisseme
 INSERT INTO utilisateur_banque (nom, email, mot_de_passe, banque_id) VALUES 
 ('Admin Banque Centrale', 'admin1@central.com', 'adminpass', 1),
 ('Employé Banque Populaire', 'employe@populaire.com', 'emp123', 2);
+
+INSERT INTO fond_etablissement (montant, banque_id) VALUES 
+(1000000000.00, 3);
+
+
+
+
+
+

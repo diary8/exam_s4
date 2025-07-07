@@ -20,17 +20,23 @@ class PretModel{
         return $result;
     }
 
-        public function create($data)
-    {
+ public function create($data) {
         $query = "INSERT INTO pret (date_debut_pret, montant, banque_id, type_pret_id, client_id) 
-                  VALUES (:date_debut, :montant, :banque, :type_pret, :client)";
+                  VALUES (NOW(), :montant, :banque_id, :type_pret_id, :client_id)";
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':date_debut', $data['date_debut'], PDO::PARAM_STR);
         $stmt->bindParam(':montant', $data['montant']);
-        $stmt->bindParam(':banque', $data['banque'], PDO::PARAM_STR);
-        $stmt->bindParam(':type_pret', $data['type_pret'], PDO::PARAM_STR);
-        $stmt->bindParam(':client', $data['client'], PDO::PARAM_STR);
+        $stmt->bindParam(':banque_id', $data['banque_id'], PDO::PARAM_INT);
+        $stmt->bindParam(':type_pret_id', $data['type_pret_id'], PDO::PARAM_INT);
+        $stmt->bindParam(':client_id', $data['client_id'], PDO::PARAM_INT);
         $stmt->execute();
         return $this->db->lastInsertId();
+    }
+
+    public function clientHasPendingLoan($client_id) {
+        $query = "SELECT COUNT(*) FROM pret WHERE client_id = :client_id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':client_id', $client_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
     }
 }
