@@ -9,11 +9,11 @@ class PretModel{
     }
 
     public function findAll(){
-        $sql = "SELECT * FROM pret";
+        $sql = "SELECT * FROM v_pret";
         $result = [];
         try {
             $stmt = $this->db->query($sql);
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Throwable $th) {
             throw $th;
         }
