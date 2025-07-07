@@ -3,17 +3,17 @@ require_once __DIR__.'/../models/BanqueModel.php';
 
 class BanqueController
 {
-    private $model;
+    private $banqueModel;
 
     public function __construct($db)
     {
-        $this->model = new BanqueModel($db);
+        $this->banqueModel = new BanqueModel($db);
     }
 
     public function findAll()
     {
         try {
-            $banques = $this->model->findAll();
+            $banques = $this->banqueModel->findAll();
             Flight::json([
                 'success' => true,
                 'data' => $banques
@@ -30,7 +30,7 @@ class BanqueController
     public function findById($id)
     {
         try {
-            $banque = $this->model->findById($id);
+            $banque = $this->banqueModel->findById($id);
             if ($banque) {
                 Flight::json([
                     'success' => true,

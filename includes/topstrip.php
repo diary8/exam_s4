@@ -1,7 +1,7 @@
 <div class="app-topstrip bg-primary py-3 px-3 w-100 d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center gap-4">
         <a href="#">
-            <img src="../assets/images/logos/logo.png" alt="Logo Bibliothèque" width="40" height="45">
+            <img src="http://localhost/exam_s4/assets/images/logos/logo-wrappixel.svg" alt="Logo" width="40" height="45">
         </a>
         <h3 class="text-white mb-0 fs-5 d-none d-md-block">Prêt bancaire</h3>
     </div>

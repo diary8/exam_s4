@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tableau de bord</title>
-    <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+    <link rel="shortcut icon" type="image/png" href="http://localhost/exam_s4/assets/images/logos/favicon.png" />
+    <link rel="stylesheet" href="http://localhost/exam_s4/assets/css/styles.min.css" />
     <style>
         .sidebar-nav ul li a.active {
             background-color: rgba(255, 255, 255, 0.1);

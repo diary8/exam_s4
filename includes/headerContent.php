@@ -13,7 +13,7 @@
                         <a class="nav-link pe-0" href="#" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="d-flex align-items-center">
                                 <div class="me-2">
-                                    <img src="../assets/images/profile/user-1.jpg" alt="Profil"
+                                    <img src="http://localhost/exam_s4/assets/images/profile/user-1.jpg" alt="Profil"
                                          width="35" height="35" class="rounded-circle">
                                 </div>
                                 <div class="d-none d-md-block">
