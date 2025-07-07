@@ -4,7 +4,7 @@ require_once __DIR__ . '/../helpers/Utils.php';
 
 
 
-class EtudiantController {
+class ClientController {
     public static function getAll() {
         $clients = ClientModel::getAll();
         Flight::json($clients);
