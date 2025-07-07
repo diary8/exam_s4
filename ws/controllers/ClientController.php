@@ -19,4 +19,5 @@ class EtudiantController {
         Etudiant::delete($id);
         Flight::json(['message' => 'Client supprimé']);
     }
+
 }
