@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <!-- <link rel="stylesheet" href="assets/css/loginstyle.css" /> -->
+  <link rel="stylesheet" href="assets/css/loginstyle.css" />
 </head>
 
 <body>
@@ -29,7 +29,7 @@
 
 </html>
 <script>
-  const apiBase = "http://localhost/exam-s4/ws";
+  const apiBase = "http://localhost/exam_s4/ws";
 
   const loginForm = document.getElementById("login-form");
 
