@@ -1,5 +1,5 @@
 <?php
-class ClientModel
+class BanqueModel
 {
     private $db;
 
@@ -10,9 +10,7 @@ class ClientModel
 
     public function findAll()
     {
-        $query = "SELECT c.*, cc.montant 
-                  FROM client c
-                  JOIN compte_client cc ON c.compte_client_id = cc.id";
+        $query = "SELECT * FROM banque";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -20,10 +18,7 @@ class ClientModel
 
     public function findById($id)
     {
-        $query = "SELECT c.*, cc.montant 
-                  FROM client c
-                  JOIN compte_client cc ON c.compte_client_id = cc.id
-                  WHERE c.id = :id";
+        $query = "SELECT * FROM banque WHERE id = :id";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();

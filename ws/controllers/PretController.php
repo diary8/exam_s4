@@ -30,4 +30,43 @@ class PretController
             return;
         }
     }
+
+     public function create()
+    {
+        $data = Flight::request()->data;
+        
+        // Validation des données
+        $requiredFields = ['date_debut', 'montant', 'banque', 'type_pret', 'client'];
+        foreach ($requiredFields as $field) {
+            if (empty($data[$field])) {
+                Flight::json([
+                    'success' => false,
+                    'message' => "Le champ $field est obligatoire"
+                ], 400);
+                return;
+            }
+        }
+
+        try {
+            $id = $this->model->create([
+                'date_debut' => $data['date_debut'],
+                'montant' => $data['montant'],
+                'banque' => $data['banque'],
+                'type_pret' => $data['type_pret'],
+                'client' => $data['client']
+            ]);
+            
+            Flight::json([
+                'success' => true,
+                'message' => 'Prêt créé avec succès',
+                'id' => $id
+            ], 201);
+        } catch (Exception $e) {
+            Flight::json([
+                'success' => false,
+                'message' => 'Erreur lors de la création du prêt',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

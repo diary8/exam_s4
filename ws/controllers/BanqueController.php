@@ -1,27 +1,27 @@
 <?php
-require_once __DIR__.'/../models/ClientModel.php';
+require_once __DIR__.'/../models/BanqueModel.php';
 
-class ClientController
+class BanqueController
 {
     private $model;
 
     public function __construct($db)
     {
-        $this->model = new ClientModel($db);
+        $this->model = new BanqueModel($db);
     }
 
     public function findAll()
     {
         try {
-            $clients = $this->model->findAll();
+            $banques = $this->model->findAll();
             Flight::json([
                 'success' => true,
-                'data' => $clients
+                'data' => $banques
             ]);
         } catch (Exception $e) {
             Flight::json([
                 'success' => false,
-                'message' => 'Erreur lors de la récupération des clients',
+                'message' => 'Erreur lors de la récupération des banques',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -30,22 +30,22 @@ class ClientController
     public function findById($id)
     {
         try {
-            $client = $this->model->findById($id);
-            if ($client) {
+            $banque = $this->model->findById($id);
+            if ($banque) {
                 Flight::json([
                     'success' => true,
-                    'data' => $client
+                    'data' => $banque
                 ]);
             } else {
                 Flight::json([
                     'success' => false,
-                    'message' => 'Client non trouvé'
+                    'message' => 'Banque non trouvée'
                 ], 404);
             }
         } catch (Exception $e) {
             Flight::json([
                 'success' => false,
-                'message' => 'Erreur lors de la récupération du client',
+                'message' => 'Erreur lors de la récupération de la banque',
                 'error' => $e->getMessage()
             ], 500);
         }
