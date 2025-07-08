@@ -1,8 +1,6 @@
 <?php
 
-use PDO;
-
-
+// use PDO;
 class BanqueModel
 {
     private $db;

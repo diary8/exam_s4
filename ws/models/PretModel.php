@@ -11,7 +11,8 @@ class PretModel
         $this->db = $db;
     }
 
-    public function findByIdDetails($idPret){
+    public function findByIdDetails($idPret)
+    {
         $sql = "SELECT pret.*,client.nom,client.email,type_pret.taux,statut_pret.mensualite  FROM pret 
         JOIN client ON client.id = pret.client_id 
         JOIN type_pret ON type_pret.id = pret.type_pret_id
@@ -25,7 +26,8 @@ class PretModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function findById($idPret){
+    public function findById($idPret)
+    {
         $sql = "SELECT * FROM pret WHERE id = ?";
         $result = null;
         $stmt = $this->db->prepare($sql);
@@ -79,17 +81,31 @@ class PretModel
         return $result;
     }
 
-    public function create($data)
+
+    public function create(array $data)
     {
-        $query = "INSERT INTO pret (date_debut_pret, montant, banque_id, type_pret_id, client_id) 
-                  VALUES (:date_debut, :montant, :banque, :type_pret, :client)";
+        $query = "INSERT INTO pret 
+              (montant, date_debut_pret, banque_id, type_pret_id, client_id, duree_mois) 
+              VALUES 
+              (:montant, :date_debut, :banque_id, :type_pret_id, :client_id, :duree_mois)";
+
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':date_debut', $data['date_debut'], PDO::PARAM_STR);
         $stmt->bindParam(':montant', $data['montant']);
-        $stmt->bindParam(':banque', $data['banque'], PDO::PARAM_STR);
-        $stmt->bindParam(':type_pret', $data['type_pret'], PDO::PARAM_STR);
-        $stmt->bindParam(':client', $data['client'], PDO::PARAM_STR);
+        $stmt->bindParam(':date_debut', $data['date_debut_pret']);
+        $stmt->bindParam(':banque_id', $data['banque_id']);
+        $stmt->bindParam(':type_pret_id', $data['type_pret_id']);
+        $stmt->bindParam(':client_id', $data['client_id']);
+        $stmt->bindParam(':duree_mois', $data['duree_mois'], PDO::PARAM_INT);
+
+        return $stmt->execute() ? $this->db->lastInsertId() : false;
+    }
+
+    public function clientHasPendingLoan($client_id)
+    {
+        $query = "SELECT COUNT(*) FROM pret WHERE client_id = :client_id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':client_id', $client_id, PDO::PARAM_INT);
         $stmt->execute();
-        return $this->db->lastInsertId();
+        return $stmt->fetchColumn() > 0;
     }
 }
