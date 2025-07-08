@@ -31,10 +31,14 @@ class PretController
         }
     }
 
-     public function create()
+    public function findAllByBanqueId(){
+        $id_banque = $_SESSION['banque_id'];
+    }
+
+    public function create()
     {
         $data = Flight::request()->data;
-        
+
         // Validation des données
         $requiredFields = ['date_debut', 'montant', 'banque', 'type_pret', 'client'];
         foreach ($requiredFields as $field) {
@@ -55,7 +59,7 @@ class PretController
                 'type_pret' => $data['type_pret'],
                 'client' => $data['client']
             ]);
-            
+
             Flight::json([
                 'success' => true,
                 'message' => 'Prêt créé avec succès',

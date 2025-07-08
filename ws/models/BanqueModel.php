@@ -29,6 +29,13 @@ class BanqueModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function findClientBanqueAvecPret($banque_id){
+        $sql = "SELECT * FROM v_client_banque WHERE banque_id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->excecute([$banque_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function findInteretMoisBetween($banque_id, $moisDebut, $anneeDebut, $moisFin, $anneeFin)
     {
         $sql = "
@@ -69,6 +76,5 @@ class BanqueModel
             throw $th;
         }
     }
-
 }
 

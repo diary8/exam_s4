@@ -13,7 +13,8 @@ class UtilisateurBanqueModel{
         $result = null;
         try {
             $stmt = $this->db->prepare($sql);
-            $result = $stmt->execute([$email,$password]);
+            $stmt->execute([$email,$password]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -109,3 +109,43 @@ INSERT INTO pret (date_debut_pret, montant, banque_id, type_pret_id, client_id) 
 ('2025-07-04', 88000.00, 1, 3, 11),
 ('2025-07-12', 45000.00, 1, 1, 12),
 ('2025-07-25', 110000.00, 1, 2, 13);
+
+
+INSERT INTO compte_client (montant) VALUES 
+(8000.00), 
+(3200.00), 
+(2100.00);
+
+INSERT INTO client (nom, email, mot_de_passe, date_de_naissance, compte_client_id) VALUES 
+('Mariam Traoré', 'mariam@example.com', 'pass123', '1992-03-11', 4),
+('Thomas Mburu', 'thomas@example.com', 'thomaspwd', '1988-12-25', 5),
+('Zara Hassan', 'zara@example.com', 'zara2025', '1995-07-08', 6);
+
+INSERT INTO client_banque (client_id, banque_id) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1);
+
+INSERT INTO type_mouvement(nom) VALUES
+('remboursement'),
+('ajout fond'),
+('pret');   
+
+
+INSERT INTO mouvement_fond (pret_id, type_mouvement_id, date_ustilisation, montant_utilise, fond_etablissement_id) VALUES
+(1, 3, '2025-01-20', 10000.00, 1),
+(2, 3, '2025-02-25', 3000.00, 1),
+(3, 3, '2025-03-15', 7500.00, 1),
+(4, 3, '2025-03-30', 5000.00, 1),
+(5, 3, '2025-04-15', 12000.00, 1),
+(6, 3, '2025-04-25', 9600.00, 1),
+(7, 3, '2025-05-10', 15000.00, 1),
+(8, 3, '2025-05-20', 9000.00, 1),
+(9, 3, '2025-06-10', 2000.00, 1),
+(10, 3, '2025-06-25', 4000.00, 1),
+(11, 3, '2025-07-06', 20000.00, 1),
+(12, 3, '2025-07-15', 9000.00, 1),
+(13, 3, '2025-07-28', 15000.00, 1);

@@ -4,37 +4,27 @@
 
 <div class="body-wrapper">
     <div class="body-wrapper-inner">
-        <form id="formPret">
-            <div class="mb-3">
-                <label for="date_debut" class="form-label">Date de début</label>
-                <input type="date" class="form-control" id="date_debut" name="date_debut" required>
+        <div class="container-fluid mt-5">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">liste emprunt</h4>
+                </div>
+                <div class="card-body">
+                    <table id="pret-table" class="table table-striped table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Client</th>
+                                <th>Date début</th>
+                                <th>durée</th>
+                                <th>Montant</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-            <div class="mb-3">
-                <label for="montant" class="form-label">Montant</label>
-                <input type="number" step="0.01" class="form-control" id="montant" name="montant" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="banque" class="form-label">Banque</label>
-                <select class="form-select" id="banque" name="banque" required>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="type_pret" class="form-label">Type de prêt</label>
-                <select class="form-select" id="type_pret" name="type_pret" required>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="client" class="form-label">Client</label>
-                <select class="form-select" id="client" name="client" required>
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
-        </form>
+        </div>
     </div>
 </div>
 

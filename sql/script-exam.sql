@@ -87,13 +87,23 @@ CREATE TABLE fond_etablissement(
    FOREIGN KEY(banque_id) REFERENCES banque(id)
 );
 
+CREATE TABLE type_mouvement(
+   id INT AUTO_INCREMENT,
+   nom VARCHAR(100),
+   PRIMARY KEY (id)
+);
+
 CREATE TABLE mouvement_fond(
    id INT AUTO_INCREMENT,
+   pret_id INT,
+   type_mouvement_id INT NOT NULL,
    date_ustilisation DATE NOT NULL,
    montant_utilise DECIMAL(15,2)   NOT NULL,
    fond_etablissement_id INT NOT NULL,
    PRIMARY KEY(id),
-   FOREIGN KEY(fond_etablissement_id) REFERENCES fond_etablissement(id)
+   FOREIGN KEY (pret_id) REFERENCES pret(id),
+   FOREIGN KEY(fond_etablissement_id) REFERENCES fond_etablissement(id),
+   FOREIGN KEY (type_mouvement_id) REFERENCES type_mouvement(id)
 );
 
 CREATE TABLE status_client(
@@ -109,5 +119,13 @@ CREATE TABLE utilisateur_banque(
    mot_de_passe VARCHAR(120),
    banque_id INT NOT NULL, 
    PRIMARY KEY (id),
+   FOREIGN KEY (banque_id) REFERENCES banque(id)
+);
+
+CREATE TABLE client_banque(
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   client_id INT NOT NULL,
+   banque_id INT NOT NULL,
+   FOREIGN KEY (client_id) REFERENCES client(id),
    FOREIGN KEY (banque_id) REFERENCES banque(id)
 );
