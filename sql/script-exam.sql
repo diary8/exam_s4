@@ -158,3 +158,19 @@ CREATE TABLE Remboursement(
    annee INT NOT NULL,
    FOREIGN KEY (mouvement_fond_id) REFERENCES mouvement_fond(id)
 );
+
+ALTER TABLE demande_pret
+ADD COLUMN banque_id INT NOT NULL,
+ADD CONSTRAINT fk_demande_pret_banque
+FOREIGN KEY (banque_id) REFERENCES banque(id);
+
+
+ALTER TABLE demande_pret ADD COLUMN client_id INT NOT NULL;
+ALTER TABLE demande_pret ADD COLUMN   duree_mois INT NOT NULL;
+
+
+UPDATE demande_pret SET client_id = id;
+UPDATE demande_pret SET duree_mois = 12;
+
+ALTER TABLE demande_pret ADD CONSTRAINT fk_demande_pret_client 
+FOREIGN KEY (client_id) REFERENCES client(id);

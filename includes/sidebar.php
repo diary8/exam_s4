@@ -43,6 +43,16 @@
                                 </div>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a href="/exam_s4/pages/Pret/Demandes.php" class="sidebar-link">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Liste des demandes</span>
+                                </div>
+                            </a>
+                        </li>
 
 
                         <li class="sidebar-item">
@@ -76,6 +86,16 @@
                                         <i class="ti ti-circle"></i>
                                     </div>
                                     <span class="hide-menu">Intéret mensuel</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/exam_s4/pages/simulations/Simulations.php" class="sidebar-link">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">simulation</span>
                                 </div>
                             </a>
                         </li>
