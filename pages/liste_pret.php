@@ -23,7 +23,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Lignes ajoutées dynamiquement ici -->
                 </tbody>
             </table>
         </div>

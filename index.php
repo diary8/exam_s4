@@ -53,7 +53,7 @@
       .then(data => {
         if (data.success) {
           console.log("connexion réussi");
-          window.location.href = "pages/home.php";
+          window.location.href = "pages/dashboard.php";
         } else {
           console.log("erreur de connexion");
         }
