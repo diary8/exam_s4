@@ -84,18 +84,15 @@ INSERT INTO compte_client (montant) VALUES
 (91000.00),  -- id = 11
 (101200.00), -- id = 12
 (110000.00); -- id = 13
-
-INSERT INTO client (nom, email, mot_de_passe, date_de_naissance, compte_client_id) VALUES
-('Marie Tchoumba', 'marie.tchou@example.com', 'marie1234', '1992-11-30', 4),
-('Ahmed Saleh', 'ahmed.saleh@example.com', 'ahmedpwd', '1988-07-19', 5),
-('Brigitte Nkot', 'brigitte.nkot@example.com', 'nkotpass', '1995-03-22', 6),
-('David Kim', 'david.kim@example.com', 'dkim321', '1999-12-05', 7),
-('Amina Hassan', 'amina.hassan@example.com', 'hassan123', '1983-04-17', 8),
-('Jonas Mvula', 'jonas.mvula@example.com', 'mvulapass', '1978-08-09', 9),
-('Noura El Fassi', 'noura.elfassi@example.com', 'noura2023', '1996-06-01', 10),
-('Eric Kouadio', 'eric.kouadio@example.com', 'ekouadio', '1991-02-28', 11),
-('Lucie Dlamini', 'lucie.dlamini@example.com', 'luciedl', '2001-10-13', 12),
-('William Okeke', 'will.okeke@example.com', 'willok2024', '1993-01-07', 13);
+INSERT INTO client (nom, email, telephone, adresse, mot_de_passe, date_de_naissance, compte_client_id) VALUES
+('Jean Dupont', 'jean.dupont@email.com', '0612345678', '12 rue de Paris, 75001', 'mdp123', '1985-05-15', 1),
+('Marie Lambert', 'marie.lambert@email.com', '0698765432', '34 avenue Victor Hugo, 69002', 'mdp456', '1990-07-22', 2),
+('Pierre Martin', 'pierre.martin@email.com', '0711223344', '56 boulevard Voltaire, 13003', 'mdp789', '1978-11-30', 3),
+('Sophie Bernard', 'sophie.bernard@email.com', '0622334455', '78 rue de la République, 31000', 'mdpabc', '1982-03-10', 4),
+('Thomas Petit', 'thomas.petit@email.com', '0644556677', '90 chemin des Oliviers, 06000', 'mdpdef', '1995-09-18', 5),
+('Laura Durand', 'laura.durand@email.com', '0766554433', '32 rue Pasteur, 44000', 'mdpghi', '1988-12-05', 6),
+('Nicolas Leroy', 'nicolas.leroy@email.com', '0688776655', '45 avenue Foch, 59000', 'mdpjkl', '1975-06-25', 7),
+('Emma Moreau', 'emma.moreau@email.com', '0799887766', '67 boulevard Gambetta, 33000', 'mdpmno', '1992-04-12', 8);
 
 INSERT INTO pret (date_debut_pret, montant, banque_id, type_pret_id, client_id) VALUES
 ('2025-03-05', 50000.00, 1, 1, 3),
