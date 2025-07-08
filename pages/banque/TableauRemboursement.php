@@ -19,7 +19,9 @@
     <div class="card shadow-sm border-0">
       <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
         <h5 class="mb-0">📋 Table de remboursement du client <span id="client-span"></span> </h5>
-        <button type="button" onclick="exportTableauEnPDF()" >exporter PDF</button>
+        <button type="button" class="btn btn-light btn-sm" onclick="exportTableauEnPDF()">
+          📄 Exporter en PDF
+        </button>
       </div>
 
       <div class="card-body">
@@ -75,10 +77,20 @@
   const params = new URLSearchParams(window.location.search);
   const idPret = params.get("idPret");
   const clientSpan = document.getElementById("client-span");
+  var montantPret = 0;
+  var duree = 0;
+  var taux = 0;
+  var mensualite = 0;
+  var dateDebut = null;
 
   ajax("GET", "/pret_client/" + idPret, null, function(data) {
     console.log(data);
     clientSpan.innerText = data.pret.nom + "/" + data.pret.email;
+    montantPret = data.pret.montant;
+    duree = data.pret.duree_mois;
+    taux = data.pret.taux;
+    mensualite = data.pret.mensualite;
+    dateDebut = data.pret.date_debut_pret;
   });
 
   ajax("GET", "/banque/tableau_remboursement?idPret=" + idPret, null, function(data) {
@@ -161,22 +173,34 @@
     } = window.jspdf;
     const doc = new jsPDF();
 
-    // Titre
+    const clientInfo = document.getElementById("client-span").innerText;
+    const table = document.getElementById("pret-table");
+
+
     doc.setFontSize(16);
     doc.text("Tableau de Remboursement", 14, 20);
 
+    doc.setFontSize(11);
+    let y = 28;
+    doc.text(`Client         : ${clientInfo}`, 14, y);
+    doc.text(`Montant du prêt : ${montantPret} Ar`, 14, y + 6);
+    doc.text(`Durée           : ${duree} mois`, 14, y + 12);
+    doc.text(`Taux d'intérêt  : ${taux} %`, 14, y + 18);
+    doc.text(`Mensualité      : ${mensualite} Ar`, 14, y + 24);
+    doc.text(`Date d'emprunt  : ${dateDebut}`, 14, y + 30);
+
     const headers = [
-      ["Mois", "Date", "Montant", "Statut"]
+      ["Mois", "Date prévue", "Montant", "Statut"]
     ];
     const rows = [];
 
-    document.querySelectorAll("#pret_table_body tr").forEach(tr => {
+    document.querySelectorAll("#pret-table tbody tr").forEach(tr => {
       const cells = tr.querySelectorAll("td");
       const rowData = [
-        cells[0].textContent,
-        cells[1].textContent,
-        cells[2].textContent,
-        cells[3].textContent,
+        cells[0]?.textContent.trim(),
+        cells[1]?.textContent.trim(),
+        cells[2]?.textContent.trim(),
+        cells[3]?.textContent.trim(),
       ];
       rows.push(rowData);
     });
@@ -184,12 +208,17 @@
     doc.autoTable({
       head: headers,
       body: rows,
-      startY: 30,
+      startY: y + 38,
+      theme: 'striped',
       styles: {
         fontSize: 10
+      },
+      headStyles: {
+        fillColor: [41, 128, 185]
       }
     });
 
-    doc.save("tableau_remboursement.pdf");
+    const nomFichier = "tableau_remboursement_" + new Date().toISOString().split("T")[0] + ".pdf";
+    doc.save(nomFichier);
   }
 </script>

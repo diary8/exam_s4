@@ -12,7 +12,13 @@ class PretModel
     }
 
     public function findByIdDetails($idPret){
-        $sql = "SELECT pret.*,client.nom,client.email FROM pret JOIN client ON client.id = pret.client_id WHERE pret.id = ?";
+        $sql = "SELECT pret.*,client.nom,client.email,type_pret.taux,statut_pret.mensualite  FROM pret 
+        JOIN client ON client.id = pret.client_id 
+        JOIN type_pret ON type_pret.id = pret.type_pret_id
+        JOIN statut_pret ON statut_pret.pret_id = pret.id
+        WHERE pret.id = ?
+        
+        ";
         $result = null;
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$idPret]);
