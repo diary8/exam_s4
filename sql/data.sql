@@ -51,7 +51,7 @@ INSERT INTO fond_etablissement (montant, banque_id) VALUES
 (500000.00, 2);
 
 -- Mouvements des fonds
-INSERT INTO mouvement_fond (date_ustilisation, montant_utilise, fond_etablissement_id) VALUES 
+INSERT INTO mouvement_fond (date_ustilisation, montant_utilise, fond_etablissement_id,) VALUES 
 ('2025-07-01', 25000.00, 1),
 ('2025-07-05', 10000.00, 2);
 
@@ -63,8 +63,7 @@ INSERT INTO utilisateur_banque (nom, email, mot_de_passe, banque_id) VALUES
 INSERT INTO fond_etablissement (montant, banque_id) VALUES 
 (1000000000.00, 3);
 
-
-
-
-
-
+INSERT INTO type_mouvement (nom) VALUES 
+('Remboursement'),
+('Ajouts Fonds'),
+('pret');

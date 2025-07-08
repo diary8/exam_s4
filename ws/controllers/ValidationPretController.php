@@ -17,36 +17,36 @@ class ValidationPretController {
         $this->fondModel = new FondEtablissementModel($db);
     }
 
-    public function approve($demande_id) {
+       public function approve($demande_id) {
         $data = Flight::request()->data;
         
         try {
+            // Vérifier fonds disponibles
             $fondDisponible = $this->fondModel->checkFunds($data['banque_id']);
-                if ($fondDisponible['montant'] < $data['montant'])
-                    {
-                    $this->statusModel->create($demande_id, 3); // 3 = Refusé
-                    Flight::json(['success' => false, 'message' => 'Fonds insuffisants']);
-                    return;
-                    }
-
-            // Vérifier si client a déjà un prêt
-            if ($this->pretModel->clientHasPendingLoan($data['client_id'])) {
+            if (!$fondDisponible || $fondDisponible['montant'] < $data['montant']) {
                 $this->statusModel->create($demande_id, 3); // 3 = Refusé
-                Flight::json(['success' => false, 'message' => 'Client a déjà un prêt']);
+                Flight::json(['success' => false, 'message' => 'Fonds insuffisants']);
                 return;
             }
+
+            // // Vérifier si client a déjà un prêt
+            // if ($this->pretModel->clientHasPendingLoan($data['client_id'])) {
+            //     $this->statusModel->create($demande_id, 3); // 3 = Refusé
+            //     Flight::json(['success' => false, 'message' => 'Client a déjà un prêt']);
+            //     return;
+            // }
 
             // Créer le prêt
             $pretId = $this->pretModel->create([
                 'montant' => $data['montant'],
-                'date_demande' => date('Y-m-d'),
+                'date_debut_pret' => date('Y-m-d'),
                 'banque_id' => $data['banque_id'],
                 'type_pret_id' => $data['type_pret_id'],
                 'client_id' => $data['client_id']
             ]);
 
-            // Mettre à jour les fonds
-            $this->fondModel->updateFunds($data['banque_id'], $data['montant']);
+            // Mettre à jour les fonds et enregistrer le mouvement (type 3 = prêt)
+            $this->fondModel->updateFundsForPret($data['banque_id'], $data['montant'], $pretId);
 
             // Changer statut demande: 2 = Approuvé
             $this->statusModel->create($demande_id, 2);
