@@ -44,7 +44,7 @@
                 </tbody>
             </table>
 
-            <h2 class="text-center mb-4">Évolution des intérêts mensuels (2025)</h2>
+            <h2 class="text-center mb-4">Évolution des intérêts mensuels</h2>
 
             <div class="d-flex justify-content-center">
                 <div class="card w-100" style="max-width: 800px;">
