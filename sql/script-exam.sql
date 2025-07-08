@@ -129,3 +129,6 @@ CREATE TABLE client_banque(
    FOREIGN KEY (client_id) REFERENCES client(id),
    FOREIGN KEY (banque_id) REFERENCES banque(id)
 );
+
+
+ALTER TABLE pret ADD COLUMN duree_mois INT;
