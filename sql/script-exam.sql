@@ -41,8 +41,12 @@ CREATE TABLE client(
    id INT AUTO_INCREMENT,
    nom VARCHAR(50)  NOT NULL,
    email VARCHAR(50)  NOT NULL,
+   telephone VARCHAR(50)  NOT NULL,
+   adresse VARCHAR(50)  NOT NULL,   
+   email VARCHAR(50)  NOT NULL,
    mot_de_passe VARCHAR(50)  NOT NULL,
    date_de_naissance DATE NOT NULL,
+   mot_de_passe VARCHAR(50)  NOT NULL,
    compte_client_id INT NOT NULL,
    PRIMARY KEY(id),
    FOREIGN KEY(compte_client_id) REFERENCES compte_client(id)
