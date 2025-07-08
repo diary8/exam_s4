@@ -1,4 +1,5 @@
 CREATE DATABASE banque;
+USE banque;
 
 CREATE TABLE type_pret(
    id INT AUTO_INCREMENT,
@@ -97,7 +98,7 @@ CREATE TABLE mouvement_fond(
 
 CREATE TABLE status_client(
     id INT AUTO_INCREMENT,
-    nom VARCAHR(20),
+    nom VARCHAR(20),
     PRIMARY KEY(id)
 );
 

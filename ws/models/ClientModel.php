@@ -1,25 +1,33 @@
 <?php
-require_once __DIR__ . '/../db.php';
+class ClientModel
+{
+    private $db;
 
-class ClientModel {
-    public static function getAll() {
-        $db = getDB();
-        $stmt = $db->query("SELECT * FROM client");
+    public function __construct($db)
+    {
+        $this->db = $db;
+    }
+
+    public function findAll()
+    {
+        $query = "SELECT c.*, cc.montant 
+                  FROM client c
+                  JOIN compte_client cc ON c.compte_client_id = cc.id";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getById($id) {
-        $db = getDB();
-        $stmt = $db->prepare("SELECT * FROM client WHERE id = ?");
-        $stmt->execute([$id]);
+    public function findById($id)
+    {
+        $query = "SELECT c.*, cc.montant 
+                  FROM client c
+                  JOIN compte_client cc ON c.compte_client_id = cc.id
+                  WHERE c.id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-
-    public static function delete($id) {
-        $db = getDB();
-        $stmt = $db->prepare("DELETE FROM client WHERE id = ?");
-        $stmt->execute([$id]);
     }
 }
 

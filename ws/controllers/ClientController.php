@@ -1,23 +1,54 @@
 <?php
-require_once __DIR__ . '/../models/ClientModel.php';
-require_once __DIR__ . '/../helpers/Utils.php';
+require_once __DIR__.'/../models/ClientModel.php';
 
+class ClientController
+{
+    private $model;
 
-
-class EtudiantController {
-    public static function getAll() {
-        $clients = ClientModel::getAll();
-        Flight::json($clients);
+    public function __construct($db)
+    {
+        $this->model = new ClientModel($db);
     }
 
-    public static function getById($id) {
-        $client = ClientModel::getById($id);
-        Flight::json($client);
+    public function findAll()
+    {
+        try {
+            $clients = $this->model->findAll();
+            Flight::json([
+                'success' => true,
+                'data' => $clients
+            ]);
+        } catch (Exception $e) {
+            Flight::json([
+                'success' => false,
+                'message' => 'Erreur lors de la récupération des clients',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
-    public static function delete($id) {
-        Etudiant::delete($id);
-        Flight::json(['message' => 'Client supprimé']);
+    public function findById($id)
+    {
+        try {
+            $client = $this->model->findById($id);
+            if ($client) {
+                Flight::json([
+                    'success' => true,
+                    'data' => $client
+                ]);
+            } else {
+                Flight::json([
+                    'success' => false,
+                    'message' => 'Client non trouvé'
+                ], 404);
+            }
+        } catch (Exception $e) {
+            Flight::json([
+                'success' => false,
+                'message' => 'Erreur lors de la récupération du client',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
 }
