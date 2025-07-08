@@ -29,7 +29,7 @@
 
 </html>
 <script>
-  const apiBase = "http://localhost/git/exam-s4/ws";
+  const apiBase = "http://localhost/git/exam_s4/ws";
 
   const loginForm = document.getElementById("login-form");
 
