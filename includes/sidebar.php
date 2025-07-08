@@ -1,4 +1,4 @@
-<aside class="left-sidebar">
+<aside class="left-sidebar" >
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between p-3">
             <a href="#" class="text-nowrap logo-img">
@@ -33,16 +33,6 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
-                            <a href="/exam_s4/pages/Pret/liste_client.php" class="sidebar-link">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="round-16 d-flex align-items-center justify-content-center">
-                                        <i class="ti ti-circle"></i>
-                                    </div>
-                                    <span class="hide-menu">Liste des Clients</span>
-                                </div>
-                            </a>
-                        </li>
                         <li class="sidebar-item">
                             <a href="/exam_s4/pages/Pret/Demandes.php" class="sidebar-link">
                                 <div class="d-flex align-items-center gap-3">
@@ -113,6 +103,16 @@
                                 <i class="ti ti-user"></i>
                             </div>
                             <span class="hide-menu">Mon profil</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/exam_s4/pages/Client/liste_client.php" class="sidebar-link">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="round-16 d-flex align-items-center justify-content-center">
+                                <i class="ti ti-users"></i>
+                            </div>
+                            <span class="hide-menu">Liste des Clients</span>
                         </div>
                     </a>
                 </li>

@@ -51,4 +51,8 @@ class ClientController
         }
     }
 
+    public function getSolde ($id){
+        
+
+    }
 }
