@@ -51,6 +51,10 @@
                         <option value="">Chargement en cours...</option>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label for="duree_mois" class="form-label">Durée du prêt (mois)</label>
+                    <input type="number" min="1" max="360" class="form-control" id="duree_mois" required>
+                </div>
                 
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">
@@ -65,7 +69,7 @@
     <script>
         const apiBase = "http://localhost/git/exam_s4/ws";
 
-        // Charger les options dynamiques
+           // Charger les options dynamiques
         function chargerOptions(endpoint, selectId) {
             fetch(`${apiBase}${endpoint}`)
                 .then(response => response.json())
@@ -87,6 +91,7 @@
                 });
         }
 
+
         // Gestion de la soumission
         document.getElementById("formPret").addEventListener("submit", function(e) {
             e.preventDefault();
@@ -96,15 +101,16 @@
                 montant: document.getElementById("montant").value,
                 banque_id: document.getElementById("banque").value,
                 type_pret_id: document.getElementById("type_pret").value,
-                client_id: document.getElementById("client").value
+                client_id: document.getElementById("client").value,
+                duree_mois: document.getElementById("duree_mois").value // Nouveau champ
             };
 
             // Validation rapide
             if (!formData.date_debut || !formData.montant || !formData.banque_id || 
-                !formData.type_pret_id || !formData.client_id) {
+                !formData.type_pret_id || !formData.client_id || !formData.duree_mois) {
                 alert("Tous les champs sont obligatoires");
                 return;
-            }
+                }
 
             // Envoi de la demande
             fetch(`${apiBase}/demandes_pret`, {
@@ -115,9 +121,9 @@
                 body: JSON.stringify({
                     montant: formData.montant,
                     type_pret_id: formData.type_pret_id,
-                    // Ajout des nouveaux champs nécessaires
                     client_id: formData.client_id,
-                    banque_id: formData.banque_id
+                    banque_id: formData.banque_id,
+                    duree_mois: formData.duree_mois 
                 })
             })
             .then(response => response.json())

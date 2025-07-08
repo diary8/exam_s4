@@ -11,12 +11,12 @@ class DemandePretController {
         $this->statusModel = new StatusDemandeModel($db);
     }
 
-    public function create() {
+   public function create() {
     $data = Flight::request()->data;
     
     try {
-        // Validation des champs requis
-        $requiredFields = ['montant', 'type_pret_id', 'banque_id', 'client_id'];
+        // Validation
+        $requiredFields = ['montant', 'type_pret_id', 'banque_id', 'client_id', 'duree_mois'];
         foreach ($requiredFields as $field) {
             if (empty($data[$field])) {
                 Flight::json(['success' => false, 'message' => "Le champ $field est requis"], 400);
@@ -24,12 +24,13 @@ class DemandePretController {
             }
         }
 
-        // Création demande avec tous les champs
+        // Création demande
         $demandeId = $this->demandeModel->create([
             'montant' => $data['montant'],
             'type_pret_id' => $data['type_pret_id'],
             'banque_id' => $data['banque_id'],
-            'client_id' => $data['client_id']
+            'client_id' => $data['client_id'],
+            'duree_mois' => $data['duree_mois'] // Nouveau champ
         ]);
 
         // Statut initial: 1 = En cours

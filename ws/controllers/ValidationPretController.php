@@ -38,12 +38,13 @@ class ValidationPretController {
 
             // Créer le prêt
             $pretId = $this->pretModel->create([
-                'montant' => $data['montant'],
-                'date_debut_pret' => date('Y-m-d'),
-                'banque_id' => $data['banque_id'],
-                'type_pret_id' => $data['type_pret_id'],
-                'client_id' => $data['client_id']
-            ]);
+            'montant' => $data['montant'],
+            'date_debut_pret' => date('Y-m-d'),
+            'banque_id' => $data['banque_id'],
+            'type_pret_id' => $data['type_pret_id'],
+            'client_id' => $data['client_id'],
+            'duree_mois' => $data['duree_mois'] // Nouveau champ
+        ]);
 
             // Mettre à jour les fonds et enregistrer le mouvement (type 3 = prêt)
             $this->fondModel->updateFundsForPret($data['banque_id'], $data['montant'], $pretId);

@@ -6,24 +6,25 @@ class DemandePretModel {
         $this->db = $db;
     }
 
-  public function create(array $data) {
+ public function create(array $data) {
     $query = "INSERT INTO demande_pret 
-              (montant, type_pret_id, banque_id, client_id, date_demande) 
+              (montant, date_demande, type_pret_id, banque_id, client_id, duree_mois) 
               VALUES 
-              (:montant, :type_pret_id, :banque_id, :client_id, NOW())";
+              (:montant, NOW(), :type_pret_id, :banque_id, :client_id, :duree_mois)";
     
     $stmt = $this->db->prepare($query);
     $stmt->bindParam(':montant', $data['montant']);
     $stmt->bindParam(':type_pret_id', $data['type_pret_id']);
     $stmt->bindParam(':banque_id', $data['banque_id']);
     $stmt->bindParam(':client_id', $data['client_id']);
+    $stmt->bindParam(':duree_mois', $data['duree_mois'], PDO::PARAM_INT); // Nouveau paramètre
     
     return $stmt->execute() ? $this->db->lastInsertId() : false;
 }
 
 public function findAll() {
     $query = "SELECT dp.id, dp.montant, dp.date_demande, 
-                     dp.banque_id, dp.client_id, dp.type_pret_id,
+                     dp.banque_id, dp.client_id, dp.type_pret_id, dp.duree_mois,
                      tp.nom as type_pret, 
                      s.nom as statut, 
                      sd.date_changement

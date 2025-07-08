@@ -41,6 +41,7 @@
                             <th>Type</th>
                             <th>Statut</th>
                             <th>Date Demande</th>
+                            <th>Durée (mois)</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -76,14 +77,14 @@
                 });
         }
 
-      function afficherDemandes(demandes) {
+    function afficherDemandes(demandes) {
     const tbody = document.getElementById("demandesTable");
     tbody.innerHTML = "";
 
     if (demandes.length === 0) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="6" class="text-center">Aucune demande trouvée</td>
+                <td colspan="7" class="text-center">Aucune demande trouvée</td>
             </tr>
         `;
         return;
@@ -108,14 +109,15 @@
             <td>${demande.type_pret}</td>
             <td class="${statusClass}">${demande.statut}</td>
             <td>${new Date(demande.date_demande).toLocaleDateString()}</td>
+            <td>${demande.duree_mois || 'N/A'} mois</td>
             <td class="actions-cell">
                 ${(demande.statut === "En attente" || demande.statut === "En cours") ? `
                 <button class="btn btn-sm btn-success me-2" 
-                        onclick="traiterDemande(${demande.id}, 'approve', ${demande.banque_id}, ${demande.client_id}, ${demande.type_pret_id}, ${demande.montant})">
+                        onclick="traiterDemande(${demande.id}, 'approve', ${demande.banque_id}, ${demande.client_id}, ${demande.type_pret_id}, ${demande.montant}, ${demande.duree_mois})">
                     Accepter
                 </button>
                 <button class="btn btn-sm btn-danger" 
-                        onclick="traiterDemande(${demande.id}, 'reject', ${demande.banque_id}, ${demande.client_id}, ${demande.type_pret_id}, ${demande.montant})">
+                        onclick="traiterDemande(${demande.id}, 'reject', ${demande.banque_id}, ${demande.client_id}, ${demande.type_pret_id}, ${demande.montant}, ${demande.duree_mois})">
                     Rejeter
                 </button>
                 ` : '<span class="text-muted">Terminé</span>'}
@@ -126,7 +128,7 @@
 }
 
 // Modifiez aussi la fonction traiterDemande
-function traiterDemande(demandeId, action, banqueId, clientId, typePretId, montant) {
+function traiterDemande(demandeId, action, banqueId, clientId, typePretId, montant, dureeMois) {
     if (!confirm(`Voulez-vous vraiment ${action === 'approve' ? 'accepter' : 'rejeter'} cette demande ?`)) {
         return;
     }
@@ -136,7 +138,8 @@ function traiterDemande(demandeId, action, banqueId, clientId, typePretId, monta
         banque_id: banqueId,
         client_id: clientId,
         type_pret_id: typePretId,
-        montant: montant
+        montant: montant,
+        duree_mois: dureeMois
     };
 
     // Envoi de la requête

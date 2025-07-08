@@ -55,6 +55,7 @@ CREATE TABLE pret(
    banque_id INT NOT NULL,
    type_pret_id INT NOT NULL,
    client_id INT NOT NULL,
+   duree_mois INT NOT NULL,
    PRIMARY KEY(id),
    FOREIGN KEY(banque_id) REFERENCES banque(id),
    FOREIGN KEY(type_pret_id) REFERENCES type_pret(id),
@@ -68,6 +69,7 @@ CREATE TABLE demande_pret(
    type_pret_id INT NOT NULL,
    banque_id INT NOT NULL,
    client_id INT NOT NULL,
+   duree_mois INT NOT NULL,
    PRIMARY KEY(id),
    FOREIGN KEY(type_pret_id) REFERENCES type_pret(id),
    FOREIGN KEY (banque_id) REFERENCES banque(id),
@@ -136,6 +138,3 @@ CREATE TABLE client_banque(
    FOREIGN KEY (client_id) REFERENCES client(id),
    FOREIGN KEY (banque_id) REFERENCES banque(id)
 );
-
-
-ALTER TABLE pret ADD COLUMN duree_mois INT;

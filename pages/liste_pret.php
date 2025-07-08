@@ -20,6 +20,7 @@
                         <th>Date début</th>
                         <th>Montant</th>
                         <th>Type prêt</th>
+                        <th>Duree du prêt en mois</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +43,7 @@
                 <td>${element.date_debut_pret}</td>
                 <td>${element.montant}</td>
                 <td>${element.nom_type_pret}</td>
+                <td>${element.duree_mois}</td>
             `;
 
             pret_table_body.appendChild(tableRow);

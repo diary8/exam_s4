@@ -8,3 +8,6 @@ CREATE OR REPLACE VIEW v_pret AS (
     JOIN type_pret ON pret.type_pret_id = type_pret.id
     JOIN client ON client.id = pret.client_id
 );
+
+
+ALTER TABLE pret ADD COLUMN duree_mois INT;
