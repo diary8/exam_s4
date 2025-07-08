@@ -16,8 +16,12 @@ class ClientController {
     }
 
     public static function delete($id) {
-        Etudiant::delete($id);
+        ClientModel::delete($id);
         Flight::json(['message' => 'Client supprimé']);
+    }
+    public static function estClientValide($id) {
+        
+
     }
 
 }

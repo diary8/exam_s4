@@ -1,4 +1,5 @@
 CREATE DATABASE banque;
+use banque ;
 
 CREATE TABLE type_pret(
    id INT AUTO_INCREMENT,
@@ -41,6 +42,8 @@ CREATE TABLE client(
    nom VARCHAR(50)  NOT NULL,
    email VARCHAR(50)  NOT NULL,
    mot_de_passe VARCHAR(50)  NOT NULL,
+   telephone VARCHAR(15)  NOT NULL,
+   adresse VARCHAR(100) ,
    date_de_naissance DATE NOT NULL,
    compte_client_id INT NOT NULL,
    PRIMARY KEY(id),
@@ -95,12 +98,6 @@ CREATE TABLE mouvement_fond(
    FOREIGN KEY(fond_etablissement_id) REFERENCES fond_etablissement(id)
 );
 
-CREATE TABLE status_client(
-    id INT AUTO_INCREMENT,
-    nom VARCAHR(20),
-    PRIMARY KEY(id)
-);
-
 CREATE TABLE utilisateur_banque(
    id INT AUTO_INCREMENT,
    nom VARCHAR(120),
@@ -109,4 +106,20 @@ CREATE TABLE utilisateur_banque(
    banque_id INT NOT NULL, 
    PRIMARY KEY (id),
    FOREIGN KEY (banque_id) REFERENCES banque(id)
+);
+
+CREATE TABLE information_client(
+   id INT AUTO_INCREMENT,
+   nom VARCHAR(50)  NOT NULL,
+   id_client INT NOT NULL,
+   PRIMARY KEY(id),
+   FOREIGN KEY(id_client) REFERENCES client(id)
+);
+
+CREATE TABLE information_personnelle(
+   id INT,
+   id_information INT,
+   PRIMARY KEY(id, id_information),
+   FOREIGN KEY(id) REFERENCES client(id),
+   FOREIGN KEY(id_information) REFERENCES information_client(id)
 );
