@@ -50,4 +50,5 @@ class ClientController
             ], 500);
         }
     }
+
 }
