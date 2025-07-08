@@ -21,5 +21,5 @@ class ClientModel {
         $stmt = $db->prepare("DELETE FROM client WHERE id = ?");
         $stmt->execute([$id]);
     }
-
+}
 
