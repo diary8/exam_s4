@@ -12,8 +12,27 @@
             background-color: rgba(255, 255, 255, 0.1);
             border-left: 3px solid #fff;
         }
+
         .app-topstrip {
             background-color: #1a237e !important;
+        }
+
+        .app-topstrip {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+        }
+
+        .left-sidebar {
+            position: fixed;
+            top: 56px;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            z-index: 1020;
+            background-color: #fff;
         }
     </style>
 </head>
