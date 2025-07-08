@@ -1,5 +1,7 @@
 <?php
 
+use PDO;
+
 class PretModel
 {
     private $db;
@@ -7,6 +9,22 @@ class PretModel
     public function __construct($db)
     {
         $this->db = $db;
+    }
+
+    public function findByIdDetails($idPret){
+        $sql = "SELECT pret.*,client.nom,client.email FROM pret JOIN client ON client.id = pret.client_id WHERE pret.id = ?";
+        $result = null;
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$idPret]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function findById($idPret){
+        $sql = "SELECT * FROM pret WHERE id = ?";
+        $result = null;
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$idPret]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function findAll()
@@ -24,11 +42,25 @@ class PretModel
 
     public function findPretBanque($banque_id)
     {
-        $sql = "SELECT * FROM pret 
-            JOIN mouvement_fond mf ON mf.pret_id = pret.id
+        $sql = "SELECT pret.*,mf.*,sp.montant_prete,sp.montant_rembourse,client.nom AS nom_client,client.email AS email_client FROM pret 
+            JOIN mouvement_fond mf ON mf.pret_id = pret.id 
+            JOIN statut_pret sp ON sp.pret_id = pret.id
+            JOIN client ON client.id = sp.client_id
             WHERE pret.banque_id = ? 
-            AND mouvement_font.type_mouvement_id = 3
+            AND mf.type_mouvement_id = 3
         ";
+
+        // $sql = "SELECT 
+        //             pret.*,
+        //             mf.*,
+        //             pret.montant AS montant_prete,
+        //             client.nom AS nom_client,
+        //             client.email AS email_client,
+        //         JOIN mouvement_fond mf ON mf.pret_id = pret.id
+        //         JOIN client ON client.id = pret.client_id
+        //         WHERE pret.banque_id = ?
+        //         AND mf.type_mouvement_id = 3
+        // ";
 
         $result = [];
         try {

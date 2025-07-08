@@ -33,6 +33,7 @@ SELECT
     pret.date_debut_pret,
     pret.montant,
     pret.banque_id,
+    pret.duree_mois,
     pret.type_pret_id,
     pret.client_id,
     mf.date_ustilisation,
@@ -52,6 +53,7 @@ SELECT
     pret.banque_id,
     pret.type_pret_id,
     pret.client_id,
+    mf.id AS mouvement_fond_id, 
     mf.date_ustilisation,
     mf.montant_utilise,
     mf.fond_etablissement_id
@@ -70,3 +72,56 @@ SELECT
 FROM v_mouvement_pret vp
 LEFT JOIN v_mouvement_remboursement vr ON vr.pret_id = vp.pret_id
 GROUP BY vp.pret_id, vp.date_debut_pret, vp.banque_id, vp.client_id, vp.montant;
+
+CREATE OR REPLACE VIEW statut_pret AS
+SELECT
+    vp.pret_id,
+    vp.date_debut_pret,
+    vp.banque_id,
+    vp.client_id,
+    vp.montant AS montant_prete,
+    CASE 
+        WHEN EXISTS (
+            SELECT COUNT(vmr) as nb_paye
+            FROM v_mouvement_remboursement vmr
+            JOIN Remboursement r ON r.mouvement_fond_id = vmr.mouvement_fond_id
+            WHERE vmr.pret_id = vp.pret_id
+        )
+        THEN 
+        ELSE 0
+    END AS montant_rembourse
+FROM v_mouvement_pret vp;
+
+CREATE OR REPLACE VIEW statut_pret AS
+SELECT
+    vp.pret_id,
+    vp.date_debut_pret,
+    vp.banque_id,
+    vp.client_id,
+    vp.montant AS montant_prete,
+
+    ROUND(
+        (vp.montant * (type_pret.taux / 100 / 12)) /
+        (1 - POWER(1 + (type_pret.taux / 100 / 12), -vp.duree_mois)),
+        2
+    ) AS mensualite,
+
+    COALESCE(
+        (
+            SELECT 
+                COUNT(*) *
+                ROUND(
+                    (vp.montant * (type_pret.taux / 100 / 12)) /
+                    (1 - POWER(1 + (type_pret.taux / 100 / 12), -vp.duree_mois)),
+                    2
+                )
+            FROM v_mouvement_remboursement vmr
+            JOIN Remboursement r ON r.mouvement_fond_id = vmr.mouvement_fond_id
+            WHERE vmr.pret_id = vp.pret_id
+        ),
+        0
+    ) AS montant_rembourse
+
+FROM v_mouvement_pret vp
+JOIN type_pret ON type_pret.id = vp.type_pret_id
+ORDER BY vp.pret_id;

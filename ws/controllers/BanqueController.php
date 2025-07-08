@@ -29,6 +29,41 @@ class BanqueController
             ], 500);
         }
     }
+    public function faireRemboursement()
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+
+        $data = Flight::request()->data;
+        if ($data != null) {
+            try {
+                $pretId = $data['pretId'];
+                $mois =  $data['mois'];
+                $annee = $data['annee'];
+                $dateRemboursement = $data['date'];
+                $banque_id = $_SESSION['banque_id'];
+
+                $this->banqueModel->enregistrerPayement($pretId, $mois, $annee, $dateRemboursement, $banque_id);
+
+                Flight::json([
+                    'success' => true,
+                    'message' => 'Remboursement effectué avec succès'
+                ], 200);
+            } catch (\Throwable $th) {
+                Flight::json([
+                    'success' => false,
+                    'message' => 'Erreur lors de la récupération du prêt',
+                    'error' => $th->getMessage()
+                ], 500);
+            }
+        } else {
+            Flight::json([
+                'success' => false,
+                'message' => 'Aucune donnée reçue'
+            ], 400);
+        }
+    }
 
     public function findById($id)
     {
@@ -49,6 +84,41 @@ class BanqueController
             Flight::json([
                 'success' => false,
                 'message' => 'Erreur lors de la récupération de la banque',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getTableauRemboursementPret()
+    {
+        $data = Flight::request()->query;
+
+        if (!isset($data['idPret'])) {
+            return Flight::json([
+                'success' => false,
+                'message' => 'Paramètre idPret manquant'
+            ], 400);
+        }
+
+        try {
+            $idPret = $data['idPret'];
+            $tableau = $this->banqueModel->findTableauRemboursement($idPret);
+
+            if (!$tableau) {
+                return Flight::json([
+                    'success' => false,
+                    'message' => "Aucune donnée pour le prêt n°$idPret"
+                ], 404);
+            }
+
+            return Flight::json([
+                'success' => true,
+                'echeance' => $tableau
+            ]);
+        } catch (\Throwable $e) {
+            return Flight::json([
+                'success' => false,
+                'message' => 'Erreur serveur',
                 'error' => $e->getMessage()
             ], 500);
         }

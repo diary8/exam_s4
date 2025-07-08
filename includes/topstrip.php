@@ -9,7 +9,7 @@
         <div class="text-white">
             <span class="d-none d-md-inline">Bienvenue, </span><strong>Utilisateur</strong>
         </div>
-        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-1" href="logout.php">
+        <a class="btn btn-outline-light btn-sm d-flex align-items-center gap-1" href="/exam_s4/pages/logout.php">
             <i class="ti ti-logout fs-4"></i>
             <span class="d-none d-md-inline">Déconnexion</span>
         </a>

@@ -15,24 +15,30 @@
         </nav>
     </header>
 
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Liste des prêts</h4>
+    <div class="container-fluid mt-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">📋 Liste des prêts</h5>
             </div>
+
             <div class="card-body">
-                <table id="pret-table" class="table table-striped table-bordered">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Client</th>
-                            <th>Date début</th>
-                            <th>Montant</th>
-                            <th>Type prêt</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table id="pret-table" class="table table-striped table-bordered align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Client</th>
+                                <th>Date début</th>
+                                <th>Montant prêté</th>
+                                <th>Montant à rendre</th>
+                                <th>Montant remboursé</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Les lignes seront insérées dynamiquement ici -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -44,19 +50,31 @@
 <script>
     const pret_table_body = document.querySelector("#pret-table tbody");
 
-    ajax("GET", "/pret", null, function(data) {
+    ajax("GET", "/pret/banque", null, function(data) {
         data.list_pret.forEach(element => {
             const tableRow = document.createElement("tr");
 
             tableRow.innerHTML = `
-                <td>${element.nom_client}</td>
+                <td>
+                ${element.nom_client}
+                ${element.email_client}
+                </td>
                 <td>${element.date_debut_pret}</td>
-                <td>${element.montant}</td>
-                <td>${element.nom_type_pret}</td>
-            `;
+                <td>${element.montant_prete}</td>
+                <td></td>
+                <td>${element.montant_rembourse}</td>
+                <td>
+                    <button onclick="getTableauRemboursement(${element.pret_id})" class="btn btn-sm btn-primary d-flex align-items-center justify-content-center">
+                        Voir
+                    </button>
+                </td>
+                `;
 
             pret_table_body.appendChild(tableRow);
         });
     });
-</script>
 
+    function getTableauRemboursement($id_pret){
+        window.location.href = "http://localhost/exam_s4/pages/banque/TableauRemboursement.php?idPret="+$id_pret;
+    }
+</script>

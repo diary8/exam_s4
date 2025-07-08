@@ -21,6 +21,10 @@ class UtilisateurBanqueController
             $result = $this->model->authenticate($email, $password);
 
             if ($result) {
+                if (session_status() !== PHP_SESSION_ACTIVE) {
+                    session_start();
+                }
+
                 $_SESSION['banque_id'] = $result['banque_id'];
                 $_SESSION['user_id'] = $result['id'];
 

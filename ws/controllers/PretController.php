@@ -11,6 +11,40 @@ class PretController
         $this->model = new PretModel($db);
     }
 
+    public function findById($id)
+    {
+        $pret = $this->model->findById($id);
+        if ($pret) {
+            Flight::json([
+                'success' => true,
+                'pret' => $pret
+            ]);
+        } else {
+            Flight::json([
+                'success' => false,
+                'message' => "Aucun prêt trouvé avec l'ID $id"
+            ], 404);
+        }
+    }
+
+    public function findByIdDetails($id)
+    {
+        $pret = $this->model->findByIdDetails($id);
+        if ($pret) {
+            Flight::json([
+                'success' => true,
+                'pret' => $pret
+            ]);
+        } else {
+            Flight::json([
+                'success' => false,
+                'message' => "Aucun prêt trouvé avec l'ID $id"
+            ], 404);
+        }
+    }
+
+
+
     public function findAll()
     {
         $result = $this->model->findAll();
@@ -31,8 +65,31 @@ class PretController
         }
     }
 
-    public function findAllByBanqueId(){
+    public function findAllByBanqueId()
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
         $id_banque = $_SESSION['banque_id'];
+        if ($id_banque == null) {
+            throw new Exception("id banque null");
+        }
+        $result = $this->model->findPretBanque($id_banque);
+
+        if ($result) {
+            Flight::json([
+                'success' => true,
+                'message' => 'recupérer avec success',
+                'list_pret' => $result
+            ], 200);
+            return;
+        } else {
+            Flight::json([
+                'success' => false,
+                'message' => "aucun donnée disponible"
+            ], 401);
+            return;
+        }
     }
 
     public function create()

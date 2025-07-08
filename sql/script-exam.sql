@@ -132,3 +132,17 @@ CREATE TABLE client_banque(
 
 
 ALTER TABLE pret ADD COLUMN duree_mois INT;
+
+-- CREATE TABLE Remboursement(
+--    id INT PRIMARY KEY AUTO_INCREMENT,
+--    mouvement_fond_id INT NOT NULL,
+   
+-- )
+
+CREATE TABLE Remboursement(
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   mouvement_fond_id INT NOT NULL,
+   mois INT NOT NULL,
+   annee INT NOT NULL,
+   FOREIGN KEY (mouvement_fond_id) REFERENCES mouvement_fond(id)
+);
